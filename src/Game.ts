@@ -2,12 +2,13 @@ import Phaser from "phaser";
 import BootScene from "./scenes/BootScene";
 import GameScene from "./scenes/GameScene";
 import TitleScene from "./scenes/TitleScene";
-import UIScene from "./scenes/UIScene";
-
+import {UIScene} from "./scenes/UIScene";
+import {VirtualJoyStickDemoScene} from './scenes/VirtualJoyStickScene'
 const gameConfig: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
-	width: 800,
-	height: 600,
+	// TODO: OnResize
+	width: window.innerWidth,
+	height: window.innerHeight,
 	scene: [BootScene, TitleScene, GameScene, UIScene],
 	physics: {
 		default: "arcade",

@@ -7,7 +7,8 @@
     "lint": "prettier --check \"src/**/*.{ts,js}\""
   },
   "dependencies": {
-    "phaser": "^3.51.0"
+    "phaser": "^3.51.0",
+    "rxjs": "^7.4.0"
   },
   "devDependencies": {
     "@snowpack/plugin-typescript": "^1.1.1",

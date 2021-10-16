@@ -20,7 +20,9 @@ export default class Player extends Phaser.Physics.Arcade.Image {
 		this.setCollideWorldBounds(true);
 		this.scene.add.existing(this);
 	}
-
+	update_virtual(direction){
+		this.setVelocity(direction.x,direction.y);
+	}
 	update(cursors) {
 		if (cursors.left.isDown) {
 			this.setVelocityX(-this.speed);

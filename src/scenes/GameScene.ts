@@ -1,5 +1,6 @@
 import Player from "../prefabs/Player";
 import Chest from "../prefabs/Chest";
+import {joystick_singleton} from './UIScene';
 
 export default class GameScene extends Phaser.Scene {
 	score: number;
@@ -29,11 +30,17 @@ export default class GameScene extends Phaser.Scene {
 	}
 
 	update() {
-		this.player.update(this.keys);
+		this.player.update(this.keys)
+		console.log(joystick_singleton);
+		if(joystick_singleton !== null && joystick_singleton.touchStarted()){
+			this.player.update_virtual(joystick_singleton.getDirection());
+		}
+		
+		
 	}
 
 	createPlayer() {
-		this.player = new Player(this, 32, 32, "characters", 0);
+		this.player = new Player(this, 200, 200, "characters", 0);
 	}
 
 	createInput() {
