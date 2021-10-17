@@ -1,6 +1,5 @@
 import Phaser from "phaser";
 import VirtualJoyStick from "../prefabs/VirtualJoyStick";
-import {GameWorldSceneKey} from './GameWorldScene'
 
  
 export const VirtualJoystickSceneKey={
@@ -22,7 +21,6 @@ export class VirtualJoyStickDemoScene extends Phaser.Scene {
         console.log('pressed')
     })
 
-    this.scene.launch(GameWorldSceneKey.key);
   }
 
 }
