@@ -12,6 +12,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
 		this.scene = scene;
 
 		this.speed = 160;
+		
 
 		// Physics
 		this.scene.physics.world.enable(this);

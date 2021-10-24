@@ -9,13 +9,14 @@ module.exports = {
     /* ... */
   ],
   installOptions: {
-    installTypes: true,
+    installTypes: false,
   },
   devOptions: {
     /* ... */
   },
   buildOptions: {
     /* ... */
+    
   },
   proxy: {
     /* ... */
@@ -23,4 +24,9 @@ module.exports = {
   alias: {
     /* ... */
   },
+  experiments:{
+    optimize:{
+      bundle:true
+    }
+  }
 };
