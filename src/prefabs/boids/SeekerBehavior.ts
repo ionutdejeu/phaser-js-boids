@@ -16,6 +16,6 @@ export class SeekerBehavior extends Phaser.Physics.Arcade.Image {
     }
 
     public update(){
-        let direction 
+         
     }
 }

@@ -41,6 +41,7 @@ export default class GameScene extends Phaser.Scene {
 		this.createPlayer();
 		this.addCollisions();
 		this.createInput();
+		this.createGroup();
 		this.collisionGroup = this.physics.add.group({
 			bounceX:0.5,
 			bounceY:0.5
@@ -59,9 +60,13 @@ export default class GameScene extends Phaser.Scene {
 			this.boids[i].setCollideWorldBounds(true);
 			this.boids[i].setBounce(0.1,0.1);
 		  }
-
+		 
 		  this.physics.add.collider(this.collisionGroup,this.collisionGroup);
 		  this.physics.add.collider(this.collisionGroup,this.player);
+		  this.physics.add.collider(this.collisionGroup,this.controlGroup);
+
+		  this.physics.add.collider(this.player,this.controlGroup);
+		  
 	}
 
 	bound(boid) {
@@ -246,9 +251,12 @@ export default class GameScene extends Phaser.Scene {
 		for(let j=playerSegment;j<this.boidsNum;j++){
 			this.boidData[j] = Phaser.Math.Distance.BetweenPointsSquared(this.player, this.boids[j]);
 		}
-
+		if(joystick_singleton !== null){
+			this.controlGroup.update_virtual(joystick_singleton.getDirection());
+		}
 		if(joystick_singleton !== null && joystick_singleton.touchStarted()){
 			this.player.update_virtual(joystick_singleton.getDirection());
+
 		}
 		 
 		for(let i = 0;i<this.boidsNum;i++){
@@ -298,7 +306,7 @@ export default class GameScene extends Phaser.Scene {
 	}
 
 	createGroup(){
-		this.controlGroup = new ControllableGroup(this.physics.world,this,500,500)
+		this.controlGroup = new ControllableGroup(this,600,600);
 	}
 
 	createInput() {

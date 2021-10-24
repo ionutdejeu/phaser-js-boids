@@ -85,12 +85,10 @@ export default class VirtualJoyStick extends Phaser.GameObjects.Container
 
 		this.currTochPos.set(invPos.x,invPos.y);
 		this.direction = this.currTochPos.subtract(this.touchStartPos).normalize().scale(160);
-
-		console.log('Direction',this.direction);
-
 	}
 
 	private handleDragEnd(pointer: Phaser.Input.Pointer){
+		this.direction = new Phaser.Math.Vector2(0,0);
 		this.pointerCircle.setVisible(false);
 		this.isActivated = false;
 	}
