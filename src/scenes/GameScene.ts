@@ -60,10 +60,15 @@ export default class GameScene extends Phaser.Scene {
 			this.boids[i].setCollideWorldBounds(true);
 			this.boids[i].setBounce(0.1,0.1);
 		  }
-		 
+		  
+		  
 		  this.physics.add.collider(this.collisionGroup,this.collisionGroup);
 		  this.physics.add.collider(this.collisionGroup,this.player);
 		  this.physics.add.collider(this.collisionGroup,this.controlGroup);
+
+		  this.physics.add.overlap(this.collisionGroup,this.controlGroup.shootZone,(obj1,obj2)=>{
+			 
+		  });
 
 		  this.physics.add.collider(this.player,this.controlGroup);
 		  

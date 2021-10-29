@@ -23,6 +23,10 @@ export class UIScene extends Phaser.Scene {
 		this.setupEvents();
 	}
 
+	update(time){
+
+	}
+
 	setupUIElements(): void {
 		this.scoreText = this.add.text(35, 8, "Coins: 0", {
 			fontSize: "16px",

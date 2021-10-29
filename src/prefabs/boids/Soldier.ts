@@ -7,6 +7,18 @@ const formation = {
     rotation:60
 }
 
+export interface ExecutableBehavior{
+    update()
+}
+export class DamageableBehavior{
+    health:Number
+    onHealthChanged:Subject<Number> = new Subject()
+
+    constructor(){ 
+        
+    }
+}
+
 export class ControllableGroup extends Phaser.GameObjects.Container{
     
     relative_coordinates:Array<Phaser.Math.Vector2> 
@@ -16,6 +28,9 @@ export class ControllableGroup extends Phaser.GameObjects.Container{
     collisionGroup:Phaser.Physics.Arcade.Group;
     formationContainer:Phaser.GameObjects.Container;
     arcadePhysicsBody:Phaser.Physics.Arcade.Body;
+    shootingRange:integer=200;
+    shootingAreaBody:Phaser.Physics.Arcade.Body;
+    shootZone:Phaser.GameObjects.Zone;
     constructor(scene: Phaser.Scene, x: number, y: number)
 	{  
         super(scene,x,y)
@@ -48,19 +63,27 @@ export class ControllableGroup extends Phaser.GameObjects.Container{
                 this.controllableEntities.push(ce)
                 this.add(ce);
 
-
             }
         }   
         this.nrOfControllableEntities = this.controllableEntities.length;
         
         scene.physics.world.enable(this);
+        this.shootZone = scene.add.zone(-formH/2,-formH/2,5*formH,5*formW);
+        scene.physics.world.enable(this.shootZone);
+        this.add(this.shootZone);
         
-        //this.originX = 100;
-        //this.setSize(400,400);
+        let a = scene.add.image(-100,-100,null);
+        scene.physics.world.enable(a);
+        let aBody =  a.body as Phaser.Physics.Arcade.Body;
+        aBody.setCircle(100);
+        this.add(a);
+        
+    
         this.arcadePhysicsBody = this.body as Phaser.Physics.Arcade.Body;
         this.arcadePhysicsBody.setCircle(formH,-formH/2,-formH/2);
-
+        //this.scene.physics.world.add(this.arcadePhysicsBody);
         
+        //this.shootingAreaBody = new Phaser.Physics.Arcade.Body(this.arcadePhysicsBody.world,this);
         scene.add.existing(this);
     }
      
@@ -74,9 +97,17 @@ export class ControllableGroup extends Phaser.GameObjects.Container{
         }
         
         let angle = this.computeAngle(direction)
-        for(let i=0;i<this.nrOfControllableEntities;i++){
-            this.controllableEntities[i].setAngle(angle);
+        
+        if (Math.abs(angle) >= 90){
+            for(let i=0;i<this.nrOfControllableEntities;i++){
+                this.controllableEntities[i].setFlipX(true);
+            }
+        }else{
+            for(let i=0;i<this.nrOfControllableEntities;i++){
+                this.controllableEntities[i].setFlipX(false);
+            }
         }
+        
 
 	}
 
